@@ -1,0 +1,27 @@
+{
+  "name": "@christianlet/github-api-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "build": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianlet/github-api-client.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christianlet/github-api-client/issues"
+  },
+  "homepage": "https://github.com/christianlet/github-api-client#readme",
+  "dependencies": {
+    "@octokit/auth-oauth-app": "^4.3.0",
+    "@octokit/rest": "^18.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2"
+  }
+}
