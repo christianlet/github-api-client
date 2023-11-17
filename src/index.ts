@@ -1,5 +1,5 @@
 import { Factory } from './authorizations/factory'
 
 export {
-    Factory
+    Factory as GitHubApiClient
 }
