@@ -1,3 +1,4 @@
-import { Authorization } from './auth'
+import { Authorization } from '../types/Authorizations'
+import { AuthorizationInterface } from './authorization-interface'
 
-export type AuthorizationConstructor = new () => Authorization
+export type AuthorizationConstructor = new (auth: Authorization) => AuthorizationInterface

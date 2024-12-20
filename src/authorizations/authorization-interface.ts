@@ -1,5 +1,5 @@
 import { Octokit } from '@octokit/rest';
 
-export interface Authorization {
+export interface AuthorizationInterface {
     generate(): Promise<Octokit>
 }

@@ -1,14 +1,13 @@
 import { Octokit } from '@octokit/rest'
-import { Authorization } from './auth';
+import { AuthorizationInterface } from './authorization-interface';
+import { PatAuthorization } from '../types/Authorizations'
 
-export class PersonalAccessToken implements Authorization {
+export class PersonalAccessToken implements AuthorizationInterface {
     protected accessToken: string
 
-    constructor() {
-        const token = process.env?.REACT_APP_PAT
-
-        if(token) {
-            this.accessToken = token
+    constructor(auth: PatAuthorization) {
+        if(auth.accessToken) {
+            this.accessToken = auth.accessToken
         } else {
             throw new Error("Missing token");
         }

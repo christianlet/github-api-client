@@ -1,18 +1,19 @@
 import { createOAuthAppAuth, createOAuthUserAuth } from '@octokit/auth-oauth-app';
 import { Octokit } from '@octokit/rest'
-import { Authorization } from './auth';
+import { AuthorizationInterface } from './authorization-interface';
+import { OauthAuthorization } from '../types/Authorizations'
 
-export class Oauth implements Authorization {
+export class Oauth implements AuthorizationInterface {
     protected code: string
     protected id: string
     protected secret: string
 
-    constructor(code: string) {
-        this.code = code
+    constructor(auth: OauthAuthorization) {
+        this.code = auth.code
 
-        if(process.env.REACT_APP_CLIENT_ID && process.env.REACT_APP_CLIENT_SECRET) {
-            this.id   = process.env.REACT_APP_CLIENT_ID
-            this.secret = process.env.REACT_APP_CLIENT_SECRET
+        if(auth.id && auth.secret) {
+            this.id   = auth.id
+            this.secret = auth.secret
         } else {
             throw new Error("App credentials not set");
         }

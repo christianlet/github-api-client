@@ -1,8 +1,9 @@
 import { Octokit } from '@octokit/rest';
-import { Authorization } from './auth';
+import { AuthorizationInterface } from './authorization-interface';
 import { AuthorizationConstructor } from './auth-constructor';
 import { Oauth } from './oauth';
 import { PersonalAccessToken } from './personal-access-token';
+import { Authorization, OauthAuthorization, PatAuthorization } from '../types/Authorizations'
 
 export class Factory {
     protected authMap: Map<string, any>
@@ -11,13 +12,13 @@ export class Factory {
         this.authMap = this.setMap()
     }
 
-    public async generate(): Promise<Octokit> {
-        if(!process.env.REACT_APP_AUTH_TYPE) {
-            throw new Error("ENV: REACT_APP_AUTH_TYPE not set");
+    public async generate(auth: PatAuthorization | OauthAuthorization): Promise<Octokit> {
+        if(!['pat', 'oauth'].includes(auth.type)) {
+            throw new Error(`Authorization type is invalid: ${auth.type}`);
         }
 
-        const type = this.getAuthType(process.env.REACT_APP_AUTH_TYPE)
-        const authObject = this.create(type)
+        const type = this.getAuthType(auth.type)
+        const authObject = this.create(type, auth)
 
         return authObject.generate()
     }
@@ -38,8 +39,9 @@ export class Factory {
     }
 
     protected create(
-        ctor: AuthorizationConstructor
-      ): Authorization {
-        return new ctor()
+        ctor: AuthorizationConstructor,
+        auth: Authorization
+      ): AuthorizationInterface {
+        return new ctor(auth)
       }
 }
